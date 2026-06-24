@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CMS HTE Payer Participation Specification — Version 1</title>
+<style>
+  :root {
+    --fg: #1a1a1a;
+    --fg-muted: #555;
+    --fg-faint: #888;
+    --bg: #ffffff;
+    --bg-soft: #fafafa;
+    --bg-code: #f4f4f5;
+    --accent: #0f5132;
+    --accent-soft: #e7f1ec;
+    --rule: #e5e5e5;
+    --rule-strong: #d4d4d4;
+    --must: #b91c1c;
+    --must-bg: #fef2f2;
+    --should: #b45309;
+    --should-bg: #fffbeb;
+    --may: #1d4ed8;
+    --may-bg: #eff6ff;
+    --note-bg: #f5f5f4;
+    --max-w: 760px;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); }
+  a:hover { border-bottom-color: var(--accent); }
+  code, pre, .kw {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 0.92em;
+  }
+  code {
+    background: var(--bg-code);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+  }
+  pre {
+    background: var(--bg-code);
+    border: 1px solid var(--rule);
+    border-radius: 5px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    margin: 16px 0;
+    font-size: 0.875em;
+    line-height: 1.55;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    max-width: 1180px;
+    margin: 0 auto;
+    gap: 48px;
+    padding: 0 32px;
+  }
+  aside {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 32px 0 32px 0;
+    border-right: 1px solid var(--rule);
+    font-size: 14px;
+  }
+  aside h2 {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    margin: 0 0 12px 0;
+    font-weight: 600;
+  }
+  aside ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  aside ol li { margin: 0; padding: 0; }
+  aside ol li a {
+    display: block;
+    padding: 5px 12px 5px 0;
+    color: var(--fg-muted);
+    border-bottom: none;
+    border-left: 2px solid transparent;
+    padding-left: 12px;
+  }
+  aside ol li a:hover { color: var(--fg); border-left-color: var(--rule-strong); }
+  aside ol li a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 500; }
+  aside ol ol { margin-top: 2px; }
+  aside ol ol a { font-size: 13px; padding-left: 24px; }
+  main {
+    padding: 56px 0 120px 0;
+    max-width: var(--max-w);
+  }
+  .titleblock {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 32px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0 8px 0;
+  }
+  h1 {
+    font-size: 38px;
+    line-height: 1.15;
+    margin: 0 0 16px 0;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+  }
+  .metabox {
+    background: var(--bg-soft);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--fg-muted);
+  }
+  .metabox dl { display: grid; grid-template-columns: 140px 1fr; gap: 4px 12px; margin: 0; }
+  .metabox dt { color: var(--fg-faint); }
+  .metabox dd { margin: 0; color: var(--fg); }
+  h2 {
+    font-size: 26px;
+    line-height: 1.25;
+    margin: 56px 0 16px 0;
+    letter-spacing: -0.01em;
+    font-weight: 650;
+    padding-top: 8px;
+  }
+  h3 {
+    font-size: 19px;
+    margin: 32px 0 10px 0;
+    font-weight: 600;
+  }
+  h4 {
+    font-size: 16px;
+    margin: 24px 0 6px 0;
+    font-weight: 600;
+    color: var(--fg-muted);
+  }
+  p { margin: 0 0 16px 0; }
+  ul, ol { margin: 0 0 16px 0; padding-left: 24px; }
+  li { margin-bottom: 6px; }
+  blockquote {
+    margin: 16px 0;
+    padding: 12px 20px;
+    background: var(--note-bg);
+    border-left: 3px solid var(--rule-strong);
+    color: var(--fg-muted);
+    border-radius: 0 4px 4px 0;
+  }
+  blockquote p { margin-bottom: 0; }
+  .kw {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 0.82em;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+    vertical-align: baseline;
+  }
+  .kw.must { color: var(--must); background: var(--must-bg); }
+  .kw.must-not { color: var(--must); background: var(--must-bg); }
+  .kw.should { color: var(--should); background: var(--should-bg); }
+  .kw.should-not { color: var(--should); background: var(--should-bg); }
+  .kw.may { color: var(--may); background: var(--may-bg); }
+  .kw.optional { color: var(--may); background: var(--may-bg); }
+  .kw.required { color: var(--must); background: var(--must-bg); }
+  .kw.recommended { color: var(--should); background: var(--should-bg); }
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 48px 0;
+  }
+  .callout {
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    background: var(--bg-soft);
+    padding: 14px 18px;
+    border-radius: 0 4px 4px 0;
+    margin: 16px 0;
+    font-size: 15px;
+  }
+  .callout .label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .callout.warn { border-left-color: var(--should); }
+  .callout.warn .label { color: var(--should); }
+  .callout.info { border-left-color: var(--may); }
+  .callout.info .label { color: var(--may); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  th {
+    font-weight: 600;
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  td:first-child, th:first-child { padding-left: 0; }
+  td:last-child, th:last-child { padding-right: 0; }
+  .section-anchor {
+    color: var(--fg-faint);
+    font-weight: 400;
+    font-size: 0.9em;
+    margin-right: 8px;
+  }
+  .footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-size: 13px;
+    color: var(--fg-faint);
+  }
+  .anchor-link {
+    visibility: hidden;
+    margin-left: 8px;
+    color: var(--fg-faint);
+    font-weight: 400;
+    border-bottom: none;
+    font-size: 0.7em;
+  }
+  h2:hover .anchor-link, h3:hover .anchor-link { visibility: visible; }
+  .workflow-steps {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+  .workflow-steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    padding: 10px 14px;
+    background: var(--bg-soft);
+    border: 1px solid var(--rule);
+    border-radius: 5px;
+  }
+  .workflow-steps li::before {
+    content: counter(step);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .req-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 0; padding: 0 20px; }
+    aside {
+      position: static;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--rule);
+      padding: 20px 0;
+    }
+    main { padding: 24px 0 60px 0; }
+    h1 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#ga-requirements">GA Requirements</a>
+        <ol>
+          <li><a href="#req-1">1. Claims Data Sharing</a></li>
+          <li><a href="#req-2">2. Clinical Data Query</a></li>
+          <li><a href="#req-3">3. Clinical Quality Query</a></li>
+          <li><a href="#req-4">4. NPD Integration</a></li>
+          <li><a href="#req-5">5. Patient Matching</a></li>
+          <li><a href="#req-6">6. Identity &amp; Trust</a></li>
+          <li><a href="#req-7">7. Patient Access (IAL2)</a></li>
+          <li><a href="#req-8">8. Auditability</a></li>
+        </ol>
+      </li>
+      <li><a href="#uc1">Use Case 1 — Patient Access (B2C)</a>
+        <ol>
+          <li><a href="#uc1-path1">Path 1: Network-Aligned</a></li>
+          <li><a href="#uc1-path2">Path 2: Hosted Consent</a></li>
+          <li><a href="#uc1-token">Token Request</a></li>
+          <li><a href="#uc1-response">What Payers Must Return</a></li>
+          <li><a href="#uc1-tech">Technical Requirements</a></li>
+        </ol>
+      </li>
+      <li><a href="#uc2">Use Case 2 — Claim-Triggered Query (B2B)</a></li>
+      <li><a href="#uc3">Use Case 3 — Quality Measure Reporting (B2B)</a>
+        <ol>
+          <li><a href="#uc3-workflow">End-to-End Workflow</a></li>
+          <li><a href="#uc3-gaps">Known Gaps</a></li>
+        </ol>
+      </li>
+      <li><a href="#uc4">Use Case 4 — Provider &amp; Payer Queries (B2B)</a>
+        <ol>
+          <li><a href="#uc4-provider">Provider Queries</a></li>
+          <li><a href="#uc4-p2p">Payer-to-Payer Queries</a></li>
+        </ol>
+      </li>
+      <li><a href="#references">Appendix — References</a></li>
+    </ol>
+  </aside>
+
+  <main>
+    <div class="titleblock">
+      <p class="eyebrow">Version 1 · Community Specification</p>
+      <h1>CMS Health Tech Ecosystem<br>Payer Participation Specification</h1>
+      <p style="font-size: 17px; color: var(--fg-muted); margin: 0;">
+        Technical and operational requirements for Payers participating in the CMS Health Tech Ecosystem Interoperability Framework.
+      </p>
+      <div class="metabox">
+        <dl>
+          <dt>Version</dt><dd>1</dd>
+          <dt>Date</dt><dd>June 2026</dd>
+          <dt>GA Date</dt><dd><strong>July 4, 2026</strong></dd>
+          <dt>Editor</dt><dd>Liz Lewis · b.well Connected Health</dd>
+          <dt>Feedback</dt><dd>CMS HTE working groups</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Overview -->
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>This specification defines the technical and operational requirements for Payers participating in the CMS Health Tech Ecosystem (HTE) Interoperability Framework. It covers four use cases spanning both patient-facing (B2C) and system-to-system (B2B) data exchange.</p>
+      <p><strong>Payer Objective:</strong> Join or create a CMS Aligned Network and provide claims and clinical data to CMS Aligned Networks when requested by patients, providers, and, where appropriate, other payers.</p>
+      <p>Payers <span class="kw must">MUST</span>:</p>
+      <ul>
+        <li>Make claims data accessible to CMS Aligned Networks, in alignment with Patient and Provider Access API standards.</li>
+        <li>Respond to patient, provider, and where appropriate, payer requests.</li>
+        <li>Implement CMS Interoperability Framework criteria, including clinical data as appropriate.</li>
+      </ul>
+      <p>Payers must meet the <strong>full list of GA Requirements</strong> below to be considered in the Payer category of the CMS HTE.</p>
+    </section>
+
+    <!-- GA Requirements -->
+    <section id="ga-requirements">
+      <h2>GA Requirements for Payers</h2>
+      <p>The following eight requirements apply to all Payers for General Availability on <strong>July 4, 2026</strong>.</p>
+
+      <h3 id="req-1"><span class="req-number">1</span>Claims Data Sharing</h3>
+      <p>Respond to patient, provider, and payer queries for claims and benefit information.</p>
+      <p>Payers <span class="kw must">MUST</span> respond to claims and coverage queries via a CMS-aligned Network from providers in their network, other payers, and patients (via their chosen app, with zero portal interaction required). Payers <span class="kw must">MUST</span> also respond to queries from any application listed in the Medicare App Library.</p>
+      <p>Payers <span class="kw must">MUST</span> return claims data for providers in their network through CMS-Aligned Networks they participate in without requiring portal accounts. Proactive CDA pushes do <strong>not</strong> satisfy this requirement; a query-based response is required.</p>
+
+      <h3 id="req-2"><span class="req-number">2</span>Clinical Data Query</h3>
+      <p>Payers can query providers for clinical data supporting claims submitted in the prior 60 days.</p>
+      <p>Payers <span class="kw may">MAY</span> request relevant clinical data for claim adjudication or quality purposes. Responses <span class="kw should">SHOULD</span> include structured FHIR data or PDFs.</p>
+      <div class="callout info">
+        <span class="label">Optional — GA Milestone</span>
+        OPTIONAL for the July 4, 2026 GA milestone, though encouraged.
+      </div>
+
+      <h3 id="req-3"><span class="req-number">3</span>Clinical Quality Query</h3>
+      <p>Payers, including CMS, and other value-based care organizations <span class="kw may">MAY</span> query for measure-specific clinical data under the healthcare quality improvement (<code>HQUALIMP</code>) purpose of use.</p>
+      <p>Queries may be used for quality measurement, care gap identification, quality reporting, and value-based care programs. Providers <span class="kw should">SHOULD</span> respond with the agreed-upon data elements necessary for the applicable measure, consistent with the HIPAA minimum necessary standard.</p>
+      <div class="callout warn">
+        <span class="label">Status: Evaluate Feasibility</span>
+        Spec from community pending finalization.
+      </div>
+
+      <h3 id="req-4"><span class="req-number">4</span>National Provider Directory Integration</h3>
+      <p>Support creation, maintenance, and submission of provider directory entries in the National Provider Directory (NPD).</p>
+      <p>Payers <span class="kw must">MUST</span> register with the NPD to publish provider organization, location, endpoint, and verification metadata, and provide the locations of required Payer FHIR endpoints to the NPD. Payers publish directly because they typically maintain their own endpoint and identity infrastructure.</p>
+      <p>If a Payer participates in a CMS Aligned Network, their network can handle NPD updates on their behalf.</p>
+
+      <h3 id="req-5"><span class="req-number">5</span>Patient Matching</h3>
+      <p>Incorporate CMS-approved patient matching logic.</p>
+      <p>Patient matching is the process of correctly identifying a person across different health systems, networks, and data sources. Every CMS-aligned network must reliably confirm that the person requesting or associated with the data is the correct individual.</p>
+      <p>If a query arrives and a match is made using any of the 27 approved combinations, the Payer <span class="kw must">MUST</span> respond, subject to applicable law. The spec defines required normalization rules for names, dates, identifiers, and addresses. Failure to return records when a listed combination uniquely matches is non-compliant. Implementation of patient matching logic does not relieve participants of independent HIPAA obligations.</p>
+      <p><strong>Reference:</strong> CMS Patient Matching Proposal v3.2.2 — pinned in #identity-verification-and-authentication (CMS HTE Slack).</p>
+      <p>A CMS-aligned network may accept the IAL2 token, validate it, and handle patient matching on behalf of the payer — this is acceptable.</p>
+
+      <h3 id="req-6"><span class="req-number">6</span>Identity &amp; Trust</h3>
+      <p>Participate in the National Provider Directory (NPD) for endpoint and identity verification.</p>
+      <p>Payers <span class="kw must">MUST</span> ensure their query endpoints, organizational identity, and contact metadata appear in the NPD to support secure, trusted exchange across networks.</p>
+
+      <h3 id="req-7"><span class="req-number">7</span>Patient Access (IAL2)</h3>
+      <p>Support patient access to claims and clinical data using CMS-approved IAL2 credentials.</p>
+      <p>Payers <span class="kw must">MUST</span> accept IAL2 identity verification for patient queries without requiring portal login, consistent with the Interoperability Framework.</p>
+      <p>A CMS-aligned network may accept the IAL2 token and validate it on behalf of the payer.</p>
+
+      <h3 id="req-8"><span class="req-number">8</span>Auditability</h3>
+      <p>Provide data holder–level, network-level audit logs for payer access.</p>
+      <p>Payers <span class="kw must">MUST</span> log data requests and responses (who, when, purpose of use) and provide these network-level audit logs to networks for patient-facing transparency. Logs <span class="kw must">MUST</span> be retained for at least seven (7) years, or longer if required by applicable law (45 CFR 164.530(j)).</p>
+      <p><em>This addresses network-level data holder–level logging only; payers' independent obligation to log workforce access within their own systems under 45 CFR 164.312(b) is not displaced.</em></p>
+    </section>
+
+    <hr>
+
+    <!-- Use Case 1 -->
+    <section id="uc1">
+      <h2>Use Case 1: Payers Responding to Patient Access Queries (B2C)</h2>
+
+      <h3>Overview</h3>
+      <p>Under the CMS Health Tech Ecosystem Interoperability Framework, Payers are required to honor patient-authorized data requests from third-party Patient Apps — without requiring patients to log into a payer portal. Each request arrives via a CMS-aligned Network that has already validated the requesting app's standing, attestations, and IAL2 chain of trust.</p>
+      <p><strong>Standards basis:</strong></p>
+      <ul>
+        <li>FHIR R4 data model</li>
+        <li>NIST 800-63 IAL2 identity verification (via approved Credential Service Providers)</li>
+        <li>SMART App Launch v2 — Client Confidential Asymmetric profile</li>
+        <li>OAuth 2.0 <code>client_credentials</code> grant with signed JWT <code>client_assertion</code></li>
+      </ul>
+      <p>There are two authorization paths Payers will see, depending on how the CMS-aligned Network and the Payer's authorization server handle consent. Both are fully compliant; choice depends on the Payer's governance posture.</p>
+
+      <h3 id="uc1-path1">Path 1 (Ideal): Network-Aligned Client Credentials with IAL2</h3>
+      <p>The Patient App captures patient consent and verifies patient identity to IAL2 with an approved Credential Service Provider (CSP). The Network presents the Payer's <code>/token</code> endpoint with a <code>client_credentials</code> request whose signed <code>client_assertion</code> JWT carries the IAL2 <code>id_token</code> in a structured <code>cms_smart</code> extension. No redirect to the Payer's domain. No consent UI hosted by the Payer.</p>
+
+      <h4>What arrives at the Payer's <code>/token</code> endpoint</h4>
+      <p>The inbound <code>client_assertion</code> JWT carries a structured <code>cms_smart</code> extension with:</p>
+      <ul>
+        <li><code>version</code> — fixed value <code>"1"</code></li>
+        <li><code>purpose_of_use</code> — fixed value <code>"PATRQT"</code> (Patient Request)</li>
+        <li><code>id_token</code> — CSP-issued IAL2 <code>id_token</code> with the patient's identity assertions (name, DOB, address, last 4 of SSN, etc., per the CMS-approved patient matching spec)</li>
+      </ul>
+      <p>The outer JWT is signed by the Network (RS384 or ES384, 5-minute lifetime) and addressed to the Payer's <code>/token</code> endpoint.</p>
+
+      <h4>Payer validation steps</h4>
+      <ol>
+        <li>Validate the outer JWT signature against the Network's registered JWKS</li>
+        <li>Validate the nested IAL2 <code>id_token</code> against the CSP's JWKS, including <code>identity_assurance_level = 2</code> and recency claims</li>
+        <li>Perform patient matching against the member/patient roster per the CMS-approved patient matching specification</li>
+        <li>Issue an access token scoped to the requested SMART v2 scopes</li>
+      </ol>
+
+      <h3 id="uc1-path2">Path 2 (Alternate): Partner-Hosted Consent with Attestation</h3>
+      <p>Same <code>client_credentials</code> shape as Path 1, with one addition: the Payer hosts a consent policy at a stable, publicly available URL. The Patient App renders the policy to the patient in-app and captures acceptance before any request is made to the Payer. The Network includes a <code>consent_attestation</code> in the inbound JWT.</p>
+
+      <h4>What the Payer publishes</h4>
+      <p>A consent policy at a stable URL. This URL should always point to the current version of the policy — do not change the URL when the policy changes.</p>
+
+      <h4>What additionally arrives in the JWT <code>cms_smart</code> extension</h4>
+      <ul>
+        <li><code>consent_policy</code> — array containing the URL of the policy the patient reviewed and accepted</li>
+        <li><code>consent_attestation</code> — <code>{ user_action: "approved", user_action_timestamp: &lt;ISO-8601&gt; }</code></li>
+      </ul>
+
+      <h4>Additional Payer validation steps</h4>
+      <p>Validate <code>consent_attestation</code> freshness against the Payer's defined window; reject as <code>consent_expired</code> if the <code>user_action_timestamp</code> is stale.</p>
+      <div class="callout">
+        <span class="label">Note</span>
+        A third fallback using the <code>authorization_code</code> grant is available for organizations not yet ready for either path above. Contact your CMS-aligned Network for details.
+      </div>
+
+      <h3 id="uc1-token">Token Request Structure</h3>
+      <pre>POST /token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials
+&amp;scope=patient/Patient.rs patient/Coverage.rs patient/ExplanationOfBenefit.rs
+&amp;client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+&amp;client_assertion={SIGNED_JWT}</pre>
+
+      <p>Client assertion header:</p>
+      <pre><code>{
+  "alg": "RS384",
+  "kid": "key-id",
+  "typ": "JWT"
+}</code></pre>
+
+      <p>Client assertion payload:</p>
+      <pre><code>{
+  "iss": "client-id",
+  "sub": "client-id",
+  "aud": "https://payer-token-endpoint.com/token",
+  "jti": "unique-token-id",
+  "exp": 1774651583,
+  "extensions": {
+    "cms_smart": {
+      "version": "1",
+      "purpose_of_use": "PATRQT",
+      "id_token": "&lt;IAL2 Token&gt;",
+      "consent_policy": ["https://payer.com/consent-policy"],
+      "consent_attestation": {
+        "user_action": "approved",
+        "user_action_timestamp": "&lt;ISO-8601&gt;"
+      }
+    }
+  }
+}</code></pre>
+
+      <h3 id="uc1-response">What Payers Must Return</h3>
+      <p>In response to patient-authorized queries, Payers <span class="kw must">MUST</span> return claims, coverage, and clinical data scoped to the requesting patient. At minimum: USCDI FHIR R4 resources covering the dataset relevant to the Payer's role — <code>Patient</code>, <code>Coverage</code>, <code>ExplanationOfBenefit</code>, <code>Condition</code>, <code>Observation</code>, <code>MedicationRequest</code>, etc.</p>
+      <p>All data that is online and available to patients <span class="kw must">MUST</span> be provided, whether the patient is a current member or not.</p>
+      <p>SMART v2 scope enforcement: Issue tokens limited to the scopes the app requested and enforce scope-level access on every FHIR call.</p>
+
+      <h3 id="uc1-tech">Technical Requirements</h3>
+      <table>
+        <thead>
+          <tr><th>Capability</th><th>Requirement</th><th>Path</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>USCDI FHIR API (read)</td><td>Patient-facing FHIR R4 endpoints covering USCDI dataset</td><td>Baseline</td></tr>
+          <tr><td><code>client_credentials</code> + <code>client_assertion</code> JWT</td><td>Auth server accepting SMART Client Confidential Asymmetric profile with structured extension parsing</td><td>Baseline</td></tr>
+          <tr><td>JWKS endpoint</td><td>Publicly-resolvable URL hosting auth server's JWK Set, with key rotation</td><td>Baseline</td></tr>
+          <tr><td>IAL2 <code>id_token</code> validation</td><td>Validate nested CSP-issued <code>id_token</code> against CSP's JWKS</td><td>Baseline</td></tr>
+          <tr><td>Patient matching</td><td>Resolve demographics in <code>id_token</code> to a single patient per CMS-approved spec</td><td>Baseline</td></tr>
+          <tr><td>SMART v2 scope enforcement</td><td>Issue and enforce scoped tokens on every FHIR call</td><td>Baseline</td></tr>
+          <tr><td>Hosted consent policy URL</td><td>Stable, versioned consent policy URL; validate attestation freshness</td><td>Path 2 only</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Registration</h3>
+      <p><strong>Current state (manual):</strong> Provide a publicly-resolvable JWK Set URL, <code>/token</code> endpoint, FHIR base URL, and (if on Path 2) hosted consent policy URL to the CMS-aligned Network. The Network registers the Payer and surfaces it to participating Patient Apps.</p>
+      <p><strong>Future state:</strong> Auto-registration aligned with UDAP / dynamic registration patterns is forthcoming. Build against the manual flow now.</p>
+    </section>
+
+    <hr>
+
+    <!-- Use Case 2 -->
+    <section id="uc2">
+      <h2>Use Case 2: Payers Initiating Queries Upon Receipt of a Claim (B2B)</h2>
+
+      <h3>Overview</h3>
+      <p>When a claim is received, a Payer may query the submitting provider's systems for supporting clinical data. This enables utilization management, claims adjudication, and quality program needs without manual chart pull requests. The scope is limited to clinical data relevant to claims submitted in the prior 60 days.</p>
+      <p><strong>GA Requirement:</strong> Payers can query providers for clinical data supporting claims submitted in the prior 60 days. Responses should include structured data or PDFs.</p>
+      <div class="callout info">
+        <span class="label">Optional — GA Milestone</span>
+        OPTIONAL for the July 4, 2026 GA milestone.
+      </div>
+
+      <h3>Workflow</h3>
+      <ol class="workflow-steps">
+        <li><strong>Claim received</strong> — Payer receives a claim from a provider via standard claims channel.</li>
+        <li><strong>Query initiation</strong> — Within 60 days of claim receipt, the Payer initiates a targeted clinical data query to the submitting provider's FHIR endpoint.</li>
+        <li><strong>Provider response</strong> — Provider returns relevant clinical data as structured FHIR resources or PDF attachments.</li>
+        <li><strong>Payer ingestion</strong> — Payer ingests the returned data for claim adjudication, utilization management, or quality purposes.</li>
+      </ol>
+
+      <h3>Scope and Parameters</h3>
+      <table>
+        <thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Time window</td><td>Query must be issued within 60 days of claim receipt</td></tr>
+          <tr><td>Query scope</td><td>Targeted to the specific claim encounter — not bulk population queries</td></tr>
+          <tr><td>Purpose of Use</td><td>HIPAA Treatment, Payment, or Healthcare Operations (TPO) as appropriate</td></tr>
+          <tr><td>Data format</td><td>Structured FHIR R4 resources preferred; PDF attachments accepted</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Known Issues</h3>
+      <ul>
+        <li>Some providers do not sign clinical notes, so data will not be released via API call. A mechanism for providers to indicate "pending/partial response" is under discussion in the workgroup.</li>
+        <li>The 60-day window is recognized as tight. The workgroup may revisit this constraint in future releases.</li>
+        <li>Providers who are ready to respond to payer queries are being identified in the Provider Workgroup — coordinate with your CMS-aligned Network to identify testing partners.</li>
+      </ul>
+
+      <h3>Standards</h3>
+      <ul>
+        <li><a href="https://hl7.org/fhir/us/davinci-cdex/">Da Vinci CDex (Clinical Data Exchange) IG</a> — for structured attachment and documentation request workflows</li>
+        <li><a href="https://build.fhir.org/ig/HL7/smart-app-launch/backend-services.html">SMART Backend Services</a> — for system-to-system authorization</li>
+        <li>CMS-approved patient matching spec</li>
+      </ul>
+    </section>
+
+    <hr>
+
+    <!-- Use Case 3 -->
+    <section id="uc3">
+      <h2>Use Case 3: Payers Initiating Queries for Quality Measure Reporting (B2B)</h2>
+
+      <h3>Overview</h3>
+      <p>Payers, including CMS, and other value-based care organizations may query for measure-specific clinical data from providers under the healthcare quality improvement (<code>HQUALIMP</code>) purpose of use. Queries support quality measurement, care gap identification, quality reporting, and value-based care programs.</p>
+      <div class="callout warn">
+        <span class="label">Status: Evaluate Feasibility</span>
+        Content hold pending community spec finalization. This use case documents the current working model developed by the Payer/Provider Small Group and is intended to guide early adopters and testing partners.
+      </div>
+
+      <h3>Workgroup Agreements</h3>
+      <ul>
+        <li>The minimum FHIR resources for a quality measure are defined by the measure authority (NCQA or CMS). US Quality Core is the long-term target but not viable today.</li>
+        <li>The DEQM Data Exchange MeasureReport wrapper is <span class="kw optional">OPTIONAL</span> when a provider sends data to a payer. The clinical payload is what matters.</li>
+        <li>A Payer will not run live queries on a Provider's system for quality purposes — the Provider packages and delivers the data.</li>
+      </ul>
+
+      <h3 id="uc3-workflow">End-to-End Workflow</h3>
+      <p>The workflow involves four participants: Measure Authority, Payer, Provider, and Measure Calculation Engine.</p>
+      <table>
+        <thead><tr><th style="width:50px;">Step</th><th style="width:140px;">Actor</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Measure Authority</td><td>Publishes <code>Measure</code> Resource and <code>Library</code> Resource, including <code>dataRequirements</code> and CQL/measure logic. Both Payer and Provider confirm access before testing begins.</td></tr>
+          <tr><td>2</td><td>Payer</td><td>Shares attributed member roster with the Provider as a Da Vinci ATR <code>Group</code> resource. Minimum refresh cadence: monthly. Payer may push or Provider may pull via Provider Access API.</td></tr>
+          <tr><td>3</td><td>Provider</td><td>Consumes ATR <code>Group</code>, reconciles against MPI, and reports unmatched members back to the Payer.</td></tr>
+          <tr><td>4</td><td>Provider</td><td>Determines required data by consulting <code>dataRequirements</code> in the Library Resource (<code>$data-requirements</code>) and collects data for the attributed population.</td></tr>
+          <tr><td>5</td><td>Provider</td><td>Assembles a Bulk FHIR file (NDJSON of bundles organized by Patient). DEQM Data Exchange MeasureReport metadata is <span class="kw optional">OPTIONAL</span> — the clinical resource bundle is the required payload.</td></tr>
+          <tr><td>6</td><td>Payer</td><td>Performs patient match if needed. If Provider stored and returned Payer identifier, this step may not be required.</td></tr>
+          <tr><td>7</td><td>Payer</td><td>Combines EHR data with claims data and submits to a Measure Calculation Engine (CQL or equivalent). May use current systems if CQL is not yet available.</td></tr>
+          <tr><td>8</td><td>Payer</td><td>Shares patient-level results → Provider (DEQM Individual MeasureReport) [secondary priority] and population-level summary → Measure Authority (DEQM Summary MeasureReport) [optional].</td></tr>
+          <tr><td>9</td><td>Provider</td><td>(Optional) Based on Gaps in Care Report, repeats data-sharing process focusing on patients with open gaps.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Measure Selection</h3>
+      <p>Each Payer/Provider pair selects at minimum one (1) measure for testing. Any eCQM or HEDIS measure is eligible.</p>
+      <ul>
+        <li><strong>eCQMs:</strong> <a href="https://ecqi.healthit.gov/ep-ec/ecqms">eCQI Resource Center</a> <em>(available via open source)</em></li>
+        <li><strong>HEDIS measures:</strong> <a href="https://www.ncqa.org/hedis/">NCQA</a> <em>(requires licensure — confirm access arrangements before testing begins)</em></li>
+      </ul>
+
+      <h3>FHIR Terminology Mapping</h3>
+      <table>
+        <thead><tr><th>Concept</th><th>FHIR Representation</th></tr></thead>
+        <tbody>
+          <tr><td>Population definition / roster</td><td>Da Vinci ATR <code>Group</code> resource</td></tr>
+          <tr><td>Measure logic and data requirements</td><td>Library Resource (<code>$data-requirements</code>)</td></tr>
+          <tr><td>Clinical data payload</td><td>FHIR Bundle (NDJSON, organized by Patient)</td></tr>
+          <tr><td>Measure calculation trigger</td><td>CQL / Measure Engine running <code>$evaluate</code></td></tr>
+          <tr><td>Patient-level results</td><td>DEQM Individual MeasureReport</td></tr>
+          <tr><td>Population-level results</td><td>DEQM Summary MeasureReport</td></tr>
+          <tr><td>Care gap feedback to provider</td><td>DEQM Gaps in Care Report</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="uc3-gaps">Known Gaps</h3>
+
+      <h4>eCQM gap (USCDI v3 + 10 additional elements)</h4>
+      <p>USCDI v3 alone does not carry enough for most eCQMs. Ten additional data elements are needed: Follow-Up Plan, Discharge Summary Sent, Assessment Tool Score, Section GG Functional Status, PHQ-9, Blood Culture Collected, Medication Reconciliation List, Medication Administration, Specialist Report Received, Device Days. <code>MedicationStatement</code> and <code>DeviceUseStatement</code> are not profiled in US Core. <code>Specimen</code> and <code>MedicationDispense</code> exist only in STU6+.</p>
+
+      <h4>HEDIS gap (HEDIS IG vs. US Core)</h4>
+      <p>HEDIS IG builds on US Core but adds payer-side resources with no USCDI equivalent (<code>Claim</code>, <code>EOB</code>, <code>ClaimResponse</code>, <code>Coverage</code> extensions, <code>RelatedPerson</code>) and stricter clinical requirements: <code>MedicationDispense.daysSupply</code> and <code>whenHandedOver</code> required for PDC; <code>Condition.onset</code> required; <code>Observation.status</code> restricted to <code>final/amended/corrected</code>; <code>Encounter.period</code> required.</p>
+
+      <h4>Infrastructure</h4>
+      <p>Bulk FHIR has shown reliability issues in real-world testing. Patient-by-patient queries work but are slow. Build patient-by-patient as the baseline; optimize with Bulk FHIR later.</p>
+
+      <h4>Provenance</h4>
+      <p>HEDIS metatag (<code>meta.tag.hedisDataSource</code>) is being retired. Use standard FHIR <code>Provenance</code> until the workgroup converges on a replacement. NCQA data quality validation (to replace PSV) is targeted for 2027.</p>
+
+      <h3>Open Issues</h3>
+      <ul>
+        <li><strong>Push vs. pull is not resolved.</strong> Infrastructure to date is query/pull. HEDIS push has been proposed but not agreed.</li>
+        <li><strong>CQL Engine certification:</strong> DQIC is vetting engines for consistency. Confirm whether the selected Measure Authority requires a certified engine before production deployment.</li>
+        <li><strong>Standardizing patient-level calculated measure communication (payer → provider):</strong> Excel spreadsheets are not viable for production. Pending workgroup agenda item.</li>
+        <li>Submit written comments to ONC on USCDI+Quality v1 covering the +10 eCQM gap and HEDIS-specific requirements.</li>
+      </ul>
+
+      <h3>Use Case 3 References</h3>
+      <ul>
+        <li><a href="https://hl7.org/fhir/us/davinci-atr/">HL7 Da Vinci ATR v2.1.0</a></li>
+        <li><a href="https://hl7.org/fhir/us/davinci-deqm/">HL7 Da Vinci DEQM v5.0.0</a></li>
+        <li><a href="https://build.fhir.org/ig/HL7/fhir-cqm/en/capabilities.html">HL7 FHIR CQM Capability Statements</a></li>
+        <li><a href="https://ecqi.healthit.gov/ep-ec/ecqms">eCQI Resource Center</a></li>
+        <li><a href="https://www.ncqa.org/hedis/">NCQA HEDIS Measures</a></li>
+      </ul>
+    </section>
+
+    <hr>
+
+    <!-- Use Case 4 -->
+    <section id="uc4">
+      <h2>Use Case 4: Payers Responding to Queries from Providers and Other Payers (B2B)</h2>
+
+      <h3>Overview</h3>
+      <p>In addition to patient-initiated queries, Payers must respond to queries from Providers in their network and, where appropriate, from other Payers. These are system-to-system (B2B) exchanges operating under HIPAA TPO purposes of use and applicable network agreements.</p>
+      <p><strong>GA Requirement:</strong> Respond to patient, provider, and payer queries for claims and benefit information via a CMS-aligned Network.</p>
+
+      <h3 id="uc4-provider">Provider Queries to Payers</h3>
+      <p>Providers may query Payers for claims and clinical data about shared patients to support care coordination, utilization management, and treatment. Payers <span class="kw must">MUST</span>:</p>
+      <ul>
+        <li>Return claims data for providers in their network through CMS-Aligned Networks without requiring portal accounts.</li>
+        <li>Respond with USCDI v3 or greater (required minimum: claims data; USCDI v3 clinical data is best practice).</li>
+        <li>Support provider queries without requiring IAL2 — the CMS-aligned Network uses the NPD to validate provider identity.</li>
+        <li>A proactive CDA push does not satisfy this requirement; a query-based response is required.</li>
+      </ul>
+      <p><strong>Purpose of Use:</strong> HIPAA Treatment (<code>TREAT</code>) or Healthcare Operations (<code>HOPERAT</code>), as applicable.</p>
+
+      <h3 id="uc4-p2p">Payer-to-Payer Queries</h3>
+      <p>When a patient changes health plans, the new Payer may query the prior Payer for claims history and clinical data to support care continuity.</p>
+      <ul>
+        <li><strong>Patient consent:</strong> Member consent and selection of prior plan is required, typically captured at enrollment.</li>
+        <li><strong>Data scope:</strong> Claims history, coverage information, and clinical data per PDex IG scope.</li>
+        <li><strong>Network routing:</strong> Payer must be registered in the NPD and reachable via a CMS-aligned Network.</li>
+      </ul>
+
+      <h3>Minimum NPD Directory Fields</h3>
+      <table>
+        <thead><tr><th>Field</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Organization Name</td><td>Parent/brand name — what the patient would recognize (e.g., "Anthem")</td></tr>
+          <tr><td>Plan Name</td><td>Specific plan name (e.g., "Anthem Virginia")</td></tr>
+          <tr><td>Endpoint</td><td>Can be shared across plans; same or different endpoint per plan is acceptable</td></tr>
+          <tr><td>Payer ID + Status</td><td></td></tr>
+          <tr><td>Tax ID</td><td></td></tr>
+          <tr><td>NPI</td><td></td></tr>
+          <tr><td>NAIC</td><td></td></tr>
+          <tr><td>HIOS ID</td><td></td></tr>
+        </tbody>
+      </table>
+      <p>Minimum data for member matching/routing: Member ID + Full Name + DOB enables routing to the correct entity.</p>
+      <p><strong>Standards basis:</strong> <a href="https://hl7.org/fhir/us/davinci-pdex/">HL7 Da Vinci PDex IG v2.x</a>. PDex v2.2 introduces NDJSON response format — confirm version support with your network partner.</p>
+
+      <h3>Technical Requirements</h3>
+      <table>
+        <thead><tr><th>Requirement</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>CMS-Aligned Network participation</td><td>Payer must be connected to at least one CMS-aligned Network capable of routing B2B queries</td></tr>
+          <tr><td>NPD registration</td><td>Endpoint and identity metadata published and kept current in the NPD</td></tr>
+          <tr><td>FHIR R4 APIs</td><td>FHIR R4 endpoints for claims, coverage, and clinical data</td></tr>
+          <tr><td>SMART Backend Services</td><td>System-to-system OAuth 2.0 for B2B authorization</td></tr>
+          <tr><td>Patient matching</td><td>Apply CMS-approved patient matching spec to incoming queries</td></tr>
+          <tr><td>Scope enforcement</td><td>Enforce purpose-of-use and data scope per query context</td></tr>
+          <tr><td>Audit logging</td><td>Log all inbound queries and responses per the Auditability GA requirement</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Payvider Considerations</h3>
+      <p>Payviders with full authority to adjudicate claims and act as a Payer are subject to all Payer requirements. Each Payer is responsible for informing their Payviders of NPD update obligations. The Payvider is the responsible party for maintaining their own NPD entries.</p>
+
+      <h3>Secondary Use Restrictions</h3>
+      <p>The following uses of data queried through CMS-aligned Networks are <strong>not permitted</strong>:</p>
+      <ul>
+        <li>Pricing or contract negotiation</li>
+        <li>Denying coverage to members in future enrollment periods</li>
+      </ul>
+      <p>The workgroup is developing a formal list of permitted and non-permitted secondary uses. These restrictions should be reflected in network participation agreements.</p>
+    </section>
+
+    <hr>
+
+    <!-- Appendix -->
+    <section id="references">
+      <h2>Appendix: Key References</h2>
+      <table>
+        <thead><tr><th>Resource</th><th>URL</th></tr></thead>
+        <tbody>
+          <tr><td>CMS HTE Interoperability Framework</td><td><a href="https://www.cms.gov/health-technology-ecosystem/interoperability-framework">cms.gov/health-technology-ecosystem/interoperability-framework</a></td></tr>
+          <tr><td>CMS HTE Categories</td><td><a href="https://www.cms.gov/health-technology-ecosystem/categories">cms.gov/health-technology-ecosystem/categories</a></td></tr>
+          <tr><td>CMS Patient Matching Proposal v3.2.2</td><td>Pinned in #identity-verification-and-authentication (CMS HTE Slack)</td></tr>
+          <tr><td>SMART App Launch v2</td><td><a href="https://hl7.org/fhir/smart-app-launch/">hl7.org/fhir/smart-app-launch/</a></td></tr>
+          <tr><td>SMART Backend Services</td><td><a href="https://build.fhir.org/ig/HL7/smart-app-launch/backend-services.html">build.fhir.org/ig/HL7/smart-app-launch/backend-services.html</a></td></tr>
+          <tr><td>Da Vinci CDex</td><td><a href="https://hl7.org/fhir/us/davinci-cdex/">hl7.org/fhir/us/davinci-cdex/</a></td></tr>
+          <tr><td>Da Vinci ATR v2.1.0</td><td><a href="https://hl7.org/fhir/us/davinci-atr/">hl7.org/fhir/us/davinci-atr/</a></td></tr>
+          <tr><td>Da Vinci DEQM v5.0.0</td><td><a href="https://hl7.org/fhir/us/davinci-deqm/">hl7.org/fhir/us/davinci-deqm/</a></td></tr>
+          <tr><td>Da Vinci PDex</td><td><a href="https://hl7.org/fhir/us/davinci-pdex/">hl7.org/fhir/us/davinci-pdex/</a></td></tr>
+          <tr><td>CDex Signatures</td><td><a href="https://build.fhir.org/ig/HL7/davinci-ecdx/signatures.html">build.fhir.org/ig/HL7/davinci-ecdx/signatures.html</a></td></tr>
+          <tr><td>eCQI Resource Center</td><td><a href="https://ecqi.healthit.gov/ep-ec/ecqms">ecqi.healthit.gov/ep-ec/ecqms</a></td></tr>
+          <tr><td>NCQA HEDIS</td><td><a href="https://www.ncqa.org/hedis/">ncqa.org/hedis/</a></td></tr>
+          <tr><td>CARIN Code of Conduct</td><td><a href="https://www.carinalliance.com/code-of-conduct">carinalliance.com/code-of-conduct</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="footer">
+      <p>CMS HTE Payer Participation Specification · Version 1 · June 2026</p>
+    </div>
+  </main>
+</div>
+
+<script>
+  (function () {
+    var tocLinks = Array.prototype.slice.call(document.querySelectorAll('aside ol li a'));
+    var sections = tocLinks
+      .map(function (a) {
+        var href = a.getAttribute('href');
+        if (!href || href[0] !== '#') return null;
+        var el = document.getElementById(href.slice(1));
+        return el ? { link: a, el: el } : null;
+      })
+      .filter(Boolean);
+
+    function update() {
+      var pos = window.scrollY + 120;
+      var current = sections[0];
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i].el.offsetTop <= pos) current = sections[i];
+      }
+      tocLinks.forEach(function (a) { a.classList.remove('active'); });
+      if (current) current.link.classList.add('active');
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
+</body>
+</html>
