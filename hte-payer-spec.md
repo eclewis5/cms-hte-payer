@@ -266,7 +266,7 @@ When a claim is received, a Payer may query the submitting provider's systems fo
 
 ---
 
-## 5.0 Use Case 3: Payers Initiating Queries for Quality Measure Reporting (B2B)
+## 5.0 Use Case - Quality Measure Reporting (B2B)
 
 ### 5.1 Overview
 
