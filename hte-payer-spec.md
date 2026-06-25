@@ -354,7 +354,7 @@ HEDIS metatag (`meta.tag.hedisDataSource`) is being retired. Use standard FHIR `
 
 ---
 
-## 6.0 Use Case 4: Payers Responding to Queries from Providers and Other Payers (B2B)
+## 6.0 Use Case - Other Approved Payer and Provider Queries (B2B)
 
 ### 6.1 Overview
 
