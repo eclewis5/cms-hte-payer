@@ -598,10 +598,6 @@ grant_type=client_credentials
       <h3 id="uc2-overview">4.1 Overview</h3>
       <p>When a claim is received, a Payer may query the submitting provider's systems for supporting clinical data. This enables utilization management, claims adjudication, and quality program needs without manual chart pull requests. The scope is limited to clinical data relevant to claims submitted in the prior 60 days.</p>
       <p><strong>GA Requirement:</strong> Payers can query providers for clinical data supporting claims submitted in the prior 60 days. Responses should include structured data or PDFs.</p>
-      <div class="callout info">
-        <span class="label">Optional — GA Milestone</span>
-        OPTIONAL for the July 4, 2026 GA milestone.
-      </div>
 
       <h3 id="uc2-workflow">4.2 Workflow</h3>
       <ol class="workflow-steps">
@@ -617,7 +613,7 @@ grant_type=client_credentials
         <tbody>
           <tr><td>Time window</td><td>Query must be issued within 60 days of claim receipt</td></tr>
           <tr><td>Query scope</td><td>Targeted to the specific claim encounter — not bulk population queries</td></tr>
-          <tr><td>Purpose of Use</td><td>HIPAA Treatment, Payment, or Healthcare Operations (TPO) as appropriate</td></tr>
+          <tr><td>Purpose of Use</td><td><code>CLMATTCH</code> (Claim Attachment) — <a href="https://terminology.hl7.org/en/ValueSet-v3-PurposeOfUse.html">HL7 v3 Purpose of Use code set</a></td></tr>
           <tr><td>Data format</td><td>Structured FHIR R4 resources preferred; PDF attachments accepted</td></tr>
         </tbody>
       </table>

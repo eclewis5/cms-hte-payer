@@ -236,8 +236,6 @@ When a claim is received, a Payer may query the submitting provider's systems fo
 
 **GA Requirement:** Payers can query providers for clinical data supporting claims submitted in the prior 60 days. Responses should include structured data or PDFs.
 
-**OPTIONAL** for the July 4, 2026 GA milestone.
-
 ### 4.2 Workflow
 
 1. **Claim received** — Payer receives a claim from a provider via standard claims channel.
@@ -251,7 +249,7 @@ When a claim is received, a Payer may query the submitting provider's systems fo
 |---|---|
 | Time window | Query must be issued within 60 days of claim receipt |
 | Query scope | Targeted to the specific claim encounter — not bulk population queries |
-| Purpose of Use | HIPAA Treatment, Payment, or Healthcare Operations (TPO) as appropriate |
+| Purpose of Use | `CLMATTCH` (Claim Attachment) — [HL7 v3 Purpose of Use code set](https://terminology.hl7.org/en/ValueSet-v3-PurposeOfUse.html) |
 | Data format | Structured FHIR R4 resources preferred; PDF attachments accepted |
 
 ### 4.4 Known Issues
