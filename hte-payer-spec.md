@@ -381,7 +381,34 @@ When a patient changes health plans, the new Payer may query the prior Payer for
 - **Data scope:** Claims history, coverage information, and clinical data per PDex IG scope.
 - **Network routing:** Payer must be registered in the NPD and reachable via a CMS-aligned Network.
 
-### 6.4 Minimum NPD Directory Fields
+### 6.4 Technical Requirements
+
+| Requirement | Description |
+|---|---|
+| CMS-Aligned Network participation | Payer must be connected to at least one CMS-aligned Network capable of routing B2B queries |
+| NPD registration | Endpoint and identity metadata published and kept current in the NPD |
+| FHIR R4 APIs | FHIR R4 endpoints for claims, coverage, and clinical data |
+| SMART Backend Services | System-to-system OAuth 2.0 for B2B authorization |
+| Patient matching | Apply CMS-approved patient matching spec to incoming queries |
+| Scope enforcement | Enforce purpose-of-use and data scope per query context |
+| Audit logging | Log all inbound queries and responses per the Auditability GA requirement |
+
+### 6.5 Payvider Considerations
+
+Payviders with full authority to adjudicate claims and act as a Payer are subject to all Payer requirements. Each Payer is responsible for informing their Payviders of NPD update obligations. The Payvider is the responsible party for maintaining their own NPD entries.
+
+### 6.6 Secondary Use Restrictions
+
+The following uses of data queried through CMS-aligned Networks are not permitted:
+
+- Pricing or contract negotiation
+- Denying coverage to members in future enrollment periods
+
+The workgroup is developing a formal list of permitted and non-permitted secondary uses. These restrictions should be reflected in network participation agreements.
+
+---
+
+## 7.0 National Provider Directory (NPD) Requirements
 
 | Field | Notes |
 |---|---|
@@ -400,34 +427,9 @@ Minimum data for member matching/routing: Member ID + Full Name + DOB enables ro
 - HL7 Da Vinci PDex (Payer Data Exchange) IG v2.x
 - PDex v2.2 introduces NDJSON response format — confirm version support with your network partner
 
-### 6.5 Technical Requirements
-
-| Requirement | Description |
-|---|---|
-| CMS-Aligned Network participation | Payer must be connected to at least one CMS-aligned Network capable of routing B2B queries |
-| NPD registration | Endpoint and identity metadata published and kept current in the NPD |
-| FHIR R4 APIs | FHIR R4 endpoints for claims, coverage, and clinical data |
-| SMART Backend Services | System-to-system OAuth 2.0 for B2B authorization |
-| Patient matching | Apply CMS-approved patient matching spec to incoming queries |
-| Scope enforcement | Enforce purpose-of-use and data scope per query context |
-| Audit logging | Log all inbound queries and responses per the Auditability GA requirement |
-
-### 6.6 Payvider Considerations
-
-Payviders with full authority to adjudicate claims and act as a Payer are subject to all Payer requirements. Each Payer is responsible for informing their Payviders of NPD update obligations. The Payvider is the responsible party for maintaining their own NPD entries.
-
-### 6.7 Secondary Use Restrictions
-
-The following uses of data queried through CMS-aligned Networks are not permitted:
-
-- Pricing or contract negotiation
-- Denying coverage to members in future enrollment periods
-
-The workgroup is developing a formal list of permitted and non-permitted secondary uses. These restrictions should be reflected in network participation agreements.
-
 ---
 
-## 7.0 Appendix: Key References
+## 8.0 Appendix: Key References
 
 | Resource | URL |
 |---|---|

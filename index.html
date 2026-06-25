@@ -375,13 +375,13 @@
           <li><a href="#uc4-overview">6.1 Overview</a></li>
           <li><a href="#uc4-provider">6.2 Provider Queries</a></li>
           <li><a href="#uc4-p2p">6.3 Payer-to-Payer Queries</a></li>
-          <li><a href="#uc4-npd">6.4 NPD Directory Fields</a></li>
-          <li><a href="#uc4-tech">6.5 Technical Requirements</a></li>
-          <li><a href="#uc4-payvider">6.6 Payvider Considerations</a></li>
-          <li><a href="#uc4-secondary">6.7 Secondary Use Restrictions</a></li>
+          <li><a href="#uc4-tech">6.4 Technical Requirements</a></li>
+          <li><a href="#uc4-payvider">6.5 Payvider Considerations</a></li>
+          <li><a href="#uc4-secondary">6.6 Secondary Use Restrictions</a></li>
         </ol>
       </li>
-      <li><a href="#references">7.0 Appendix — References</a></li>
+      <li><a href="#npd">7.0 National Provider Directory (NPD) Requirements</a></li>
+      <li><a href="#references">8.0 Appendix — References</a></li>
     </ol>
   </aside>
 
@@ -751,7 +751,37 @@ grant_type=client_credentials
         <li><strong>Network routing:</strong> Payer must be registered in the NPD and reachable via a CMS-aligned Network.</li>
       </ul>
 
-      <h3 id="uc4-npd">6.4 Minimum NPD Directory Fields</h3>
+      <h3 id="uc4-tech">6.4 Technical Requirements</h3>
+      <table>
+        <thead><tr><th>Requirement</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>CMS-Aligned Network participation</td><td>Payer must be connected to at least one CMS-aligned Network capable of routing B2B queries</td></tr>
+          <tr><td>NPD registration</td><td>Endpoint and identity metadata published and kept current in the NPD</td></tr>
+          <tr><td>FHIR R4 APIs</td><td>FHIR R4 endpoints for claims, coverage, and clinical data</td></tr>
+          <tr><td>SMART Backend Services</td><td>System-to-system OAuth 2.0 for B2B authorization</td></tr>
+          <tr><td>Patient matching</td><td>Apply CMS-approved patient matching spec to incoming queries</td></tr>
+          <tr><td>Scope enforcement</td><td>Enforce purpose-of-use and data scope per query context</td></tr>
+          <tr><td>Audit logging</td><td>Log all inbound queries and responses per the Auditability GA requirement</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="uc4-payvider">6.5 Payvider Considerations</h3>
+      <p>Payviders with full authority to adjudicate claims and act as a Payer are subject to all Payer requirements. Each Payer is responsible for informing their Payviders of NPD update obligations. The Payvider is the responsible party for maintaining their own NPD entries.</p>
+
+      <h3 id="uc4-secondary">6.6 Secondary Use Restrictions</h3>
+      <p>The following uses of data queried through CMS-aligned Networks are <strong>not permitted</strong>:</p>
+      <ul>
+        <li>Pricing or contract negotiation</li>
+        <li>Denying coverage to members in future enrollment periods</li>
+      </ul>
+      <p>The workgroup is developing a formal list of permitted and non-permitted secondary uses. These restrictions should be reflected in network participation agreements.</p>
+    </section>
+
+    <hr>
+
+    <!-- NPD Requirements -->
+    <section id="npd">
+      <h2>7.0 National Provider Directory (NPD) Requirements</h2>
       <table>
         <thead><tr><th>Field</th><th>Notes</th></tr></thead>
         <tbody>
@@ -767,38 +797,13 @@ grant_type=client_credentials
       </table>
       <p>Minimum data for member matching/routing: Member ID + Full Name + DOB enables routing to the correct entity.</p>
       <p><strong>Standards basis:</strong> <a href="https://hl7.org/fhir/us/davinci-pdex/">HL7 Da Vinci PDex IG v2.x</a>. PDex v2.2 introduces NDJSON response format — confirm version support with your network partner.</p>
-
-      <h3 id="uc4-tech">6.5 Technical Requirements</h3>
-      <table>
-        <thead><tr><th>Requirement</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr><td>CMS-Aligned Network participation</td><td>Payer must be connected to at least one CMS-aligned Network capable of routing B2B queries</td></tr>
-          <tr><td>NPD registration</td><td>Endpoint and identity metadata published and kept current in the NPD</td></tr>
-          <tr><td>FHIR R4 APIs</td><td>FHIR R4 endpoints for claims, coverage, and clinical data</td></tr>
-          <tr><td>SMART Backend Services</td><td>System-to-system OAuth 2.0 for B2B authorization</td></tr>
-          <tr><td>Patient matching</td><td>Apply CMS-approved patient matching spec to incoming queries</td></tr>
-          <tr><td>Scope enforcement</td><td>Enforce purpose-of-use and data scope per query context</td></tr>
-          <tr><td>Audit logging</td><td>Log all inbound queries and responses per the Auditability GA requirement</td></tr>
-        </tbody>
-      </table>
-
-      <h3 id="uc4-payvider">6.6 Payvider Considerations</h3>
-      <p>Payviders with full authority to adjudicate claims and act as a Payer are subject to all Payer requirements. Each Payer is responsible for informing their Payviders of NPD update obligations. The Payvider is the responsible party for maintaining their own NPD entries.</p>
-
-      <h3 id="uc4-secondary">6.7 Secondary Use Restrictions</h3>
-      <p>The following uses of data queried through CMS-aligned Networks are <strong>not permitted</strong>:</p>
-      <ul>
-        <li>Pricing or contract negotiation</li>
-        <li>Denying coverage to members in future enrollment periods</li>
-      </ul>
-      <p>The workgroup is developing a formal list of permitted and non-permitted secondary uses. These restrictions should be reflected in network participation agreements.</p>
     </section>
 
     <hr>
 
     <!-- Appendix -->
     <section id="references">
-      <h2>7.0 Appendix: Key References</h2>
+      <h2>8.0 Appendix: Key References</h2>
       <table>
         <thead><tr><th>Resource</th><th>URL</th></tr></thead>
         <tbody>
