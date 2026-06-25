@@ -228,7 +228,7 @@ SMART v2 scope enforcement: Issue tokens limited to the scopes the app requested
 
 ---
 
-## 4.0 Use Case 2: Payers Initiating Queries Upon Receipt of a Claim (B2B)
+## 4.0 Use Case - Claim-Triggered Query (B2B)
 
 ### 4.1 Overview
 
