@@ -380,6 +380,7 @@ When a patient changes health plans, the new Payer may query the prior Payer for
 - **Patient consent:** Member consent and selection of prior plan is required, typically captured at enrollment.
 - **Data scope:** Claims history, coverage information, and clinical data per PDex IG scope.
 - **Network routing:** Payer must be registered in the NPD and reachable via a CMS-aligned Network.
+- **Purpose of Use:** `HPAYMT` (Healthcare Payment) or `HOPERAT` (Healthcare Operations) — [HL7 v3 Purpose of Use code set](https://terminology.hl7.org/en/ValueSet-v3-PurposeOfUse.html)
 
 ### 6.4 Technical Requirements
 
