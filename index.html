@@ -325,42 +325,63 @@
   <aside>
     <h2>On this page</h2>
     <ol>
-      <li><a href="#overview">Overview</a></li>
-      <li><a href="#ga-requirements">GA Requirements</a>
+      <li><a href="#overview">1.0 Overview</a></li>
+      <li><a href="#ga-requirements">2.0 GA Requirements</a>
         <ol>
-          <li><a href="#req-1">1. Claims Data Sharing</a></li>
-          <li><a href="#req-2">2. Clinical Data Query</a></li>
-          <li><a href="#req-3">3. Clinical Quality Query</a></li>
-          <li><a href="#req-4">4. NPD Integration</a></li>
-          <li><a href="#req-5">5. Patient Matching</a></li>
-          <li><a href="#req-6">6. Identity &amp; Trust</a></li>
-          <li><a href="#req-7">7. Patient Access (IAL2)</a></li>
-          <li><a href="#req-8">8. Auditability</a></li>
+          <li><a href="#req-1">2.1 Claims Data Sharing</a></li>
+          <li><a href="#req-2">2.2 Clinical Data Query</a></li>
+          <li><a href="#req-3">2.3 Clinical Quality Query</a></li>
+          <li><a href="#req-4">2.4 NPD Integration</a></li>
+          <li><a href="#req-5">2.5 Patient Matching</a></li>
+          <li><a href="#req-6">2.6 Identity &amp; Trust</a></li>
+          <li><a href="#req-7">2.7 Patient Access (IAL2)</a></li>
+          <li><a href="#req-8">2.8 Auditability</a></li>
         </ol>
       </li>
-      <li><a href="#uc1">Use Case 1 — Patient Access (B2C)</a>
+      <li><a href="#uc1">3.0 Use Case — Patient Access (B2C)</a>
         <ol>
-          <li><a href="#uc1-path1">Path 1: Network-Aligned</a></li>
-          <li><a href="#uc1-path2">Path 2: Hosted Consent</a></li>
-          <li><a href="#uc1-token">Token Request</a></li>
-          <li><a href="#uc1-response">What Payers Must Return</a></li>
-          <li><a href="#uc1-tech">Technical Requirements</a></li>
+          <li><a href="#uc1-overview">3.1 Overview</a></li>
+          <li><a href="#uc1-path1">3.2 Path 1: Network-Aligned</a></li>
+          <li><a href="#uc1-path2">3.3 Path 2: Hosted Consent</a></li>
+          <li><a href="#uc1-token">3.4 Token Request</a></li>
+          <li><a href="#uc1-response">3.5 What Payers Must Return</a></li>
+          <li><a href="#uc1-tech">3.6 Technical Requirements</a></li>
+          <li><a href="#uc1-registration">3.7 Registration</a></li>
         </ol>
       </li>
-      <li><a href="#uc2">Use Case 2 — Claim-Triggered Query (B2B)</a></li>
-      <li><a href="#uc3">Use Case 3 — Quality Measure Reporting (B2B)</a>
+      <li><a href="#uc2">4.0 Use Case — Claim-Triggered Query (B2B)</a>
         <ol>
-          <li><a href="#uc3-workflow">End-to-End Workflow</a></li>
-          <li><a href="#uc3-gaps">Known Gaps</a></li>
+          <li><a href="#uc2-overview">4.1 Overview</a></li>
+          <li><a href="#uc2-workflow">4.2 Workflow</a></li>
+          <li><a href="#uc2-scope">4.3 Scope and Parameters</a></li>
+          <li><a href="#uc2-issues">4.4 Known Issues</a></li>
+          <li><a href="#uc2-standards">4.5 Standards</a></li>
         </ol>
       </li>
-      <li><a href="#uc4">Use Case 4 — Provider &amp; Payer Queries (B2B)</a>
+      <li><a href="#uc3">5.0 Use Case — Quality Measure Reporting (B2B)</a>
         <ol>
-          <li><a href="#uc4-provider">Provider Queries</a></li>
-          <li><a href="#uc4-p2p">Payer-to-Payer Queries</a></li>
+          <li><a href="#uc3-overview">5.1 Overview</a></li>
+          <li><a href="#uc3-agreements">5.2 Workgroup Agreements</a></li>
+          <li><a href="#uc3-workflow">5.3 End-to-End Workflow</a></li>
+          <li><a href="#uc3-measures">5.4 Measure Selection</a></li>
+          <li><a href="#uc3-fhir">5.5 FHIR Terminology Mapping</a></li>
+          <li><a href="#uc3-gaps">5.6 Known Gaps</a></li>
+          <li><a href="#uc3-issues">5.7 Open Issues</a></li>
+          <li><a href="#uc3-refs">5.8 References</a></li>
         </ol>
       </li>
-      <li><a href="#references">Appendix — References</a></li>
+      <li><a href="#uc4">6.0 Use Case — Other Approved Payer and Provider Queries (B2B)</a>
+        <ol>
+          <li><a href="#uc4-overview">6.1 Overview</a></li>
+          <li><a href="#uc4-provider">6.2 Provider Queries</a></li>
+          <li><a href="#uc4-p2p">6.3 Payer-to-Payer Queries</a></li>
+          <li><a href="#uc4-tech">6.4 Technical Requirements</a></li>
+          <li><a href="#uc4-payvider">6.5 Payvider Considerations</a></li>
+          <li><a href="#uc4-secondary">6.6 Secondary Use Restrictions</a></li>
+        </ol>
+      </li>
+      <li><a href="#npd">7.0 National Provider Directory (NPD) Requirements</a></li>
+      <li><a href="#references">8.0 Appendix — References</a></li>
     </ol>
   </aside>
 
@@ -384,7 +405,7 @@
 
     <!-- Overview -->
     <section id="overview">
-      <h2>Overview</h2>
+      <h2>1.0 Overview</h2>
       <p>This specification defines the technical and operational requirements for Payers participating in the CMS Health Tech Ecosystem (HTE) Interoperability Framework. It covers four use cases spanning both patient-facing (B2C) and system-to-system (B2B) data exchange.</p>
       <p><strong>Payer Objective:</strong> Join or create a CMS Aligned Network and provide claims and clinical data to CMS Aligned Networks when requested by patients, providers, and, where appropriate, other payers.</p>
       <p>Payers <span class="kw must">MUST</span>:</p>
@@ -398,15 +419,15 @@
 
     <!-- GA Requirements -->
     <section id="ga-requirements">
-      <h2>GA Requirements for Payers</h2>
+      <h2>2.0 GA Requirements for Payers</h2>
       <p>The following eight requirements apply to all Payers for General Availability on <strong>July 4, 2026</strong>.</p>
 
-      <h3 id="req-1"><span class="req-number">1</span>Claims Data Sharing</h3>
+      <h3 id="req-1">2.1 Claims Data Sharing</h3>
       <p>Respond to patient, provider, and payer queries for claims and benefit information.</p>
       <p>Payers <span class="kw must">MUST</span> respond to claims and coverage queries via a CMS-aligned Network from providers in their network, other payers, and patients (via their chosen app, with zero portal interaction required). Payers <span class="kw must">MUST</span> also respond to queries from any application listed in the Medicare App Library.</p>
       <p>Payers <span class="kw must">MUST</span> return claims data for providers in their network through CMS-Aligned Networks they participate in without requiring portal accounts. Proactive CDA pushes do <strong>not</strong> satisfy this requirement; a query-based response is required.</p>
 
-      <h3 id="req-2"><span class="req-number">2</span>Clinical Data Query</h3>
+      <h3 id="req-2">2.2 Clinical Data Query</h3>
       <p>Payers can query providers for clinical data supporting claims submitted in the prior 60 days.</p>
       <p>Payers <span class="kw may">MAY</span> request relevant clinical data for claim adjudication or quality purposes. Responses <span class="kw should">SHOULD</span> include structured FHIR data or PDFs.</p>
       <div class="callout info">
@@ -414,7 +435,7 @@
         OPTIONAL for the July 4, 2026 GA milestone, though encouraged.
       </div>
 
-      <h3 id="req-3"><span class="req-number">3</span>Clinical Quality Query</h3>
+      <h3 id="req-3">2.3 Clinical Quality Query</h3>
       <p>Payers, including CMS, and other value-based care organizations <span class="kw may">MAY</span> query for measure-specific clinical data under the healthcare quality improvement (<code>HQUALIMP</code>) purpose of use.</p>
       <p>Queries may be used for quality measurement, care gap identification, quality reporting, and value-based care programs. Providers <span class="kw should">SHOULD</span> respond with the agreed-upon data elements necessary for the applicable measure, consistent with the HIPAA minimum necessary standard.</p>
       <div class="callout warn">
@@ -422,28 +443,28 @@
         Spec from community pending finalization.
       </div>
 
-      <h3 id="req-4"><span class="req-number">4</span>National Provider Directory Integration</h3>
+      <h3 id="req-4">2.4 National Provider Directory Integration</h3>
       <p>Support creation, maintenance, and submission of provider directory entries in the National Provider Directory (NPD).</p>
       <p>Payers <span class="kw must">MUST</span> register with the NPD to publish provider organization, location, endpoint, and verification metadata, and provide the locations of required Payer FHIR endpoints to the NPD. Payers publish directly because they typically maintain their own endpoint and identity infrastructure.</p>
       <p>If a Payer participates in a CMS Aligned Network, their network can handle NPD updates on their behalf.</p>
 
-      <h3 id="req-5"><span class="req-number">5</span>Patient Matching</h3>
+      <h3 id="req-5">2.5 Patient Matching</h3>
       <p>Incorporate CMS-approved patient matching logic.</p>
       <p>Patient matching is the process of correctly identifying a person across different health systems, networks, and data sources. Every CMS-aligned network must reliably confirm that the person requesting or associated with the data is the correct individual.</p>
       <p>If a query arrives and a match is made using any of the 27 approved combinations, the Payer <span class="kw must">MUST</span> respond, subject to applicable law. The spec defines required normalization rules for names, dates, identifiers, and addresses. Failure to return records when a listed combination uniquely matches is non-compliant. Implementation of patient matching logic does not relieve participants of independent HIPAA obligations.</p>
       <p><strong>Reference:</strong> CMS Patient Matching Proposal v3.2.2 — pinned in #identity-verification-and-authentication (CMS HTE Slack).</p>
       <p>A CMS-aligned network may accept the IAL2 token, validate it, and handle patient matching on behalf of the payer — this is acceptable.</p>
 
-      <h3 id="req-6"><span class="req-number">6</span>Identity &amp; Trust</h3>
+      <h3 id="req-6">2.6 Identity &amp; Trust</h3>
       <p>Participate in the National Provider Directory (NPD) for endpoint and identity verification.</p>
       <p>Payers <span class="kw must">MUST</span> ensure their query endpoints, organizational identity, and contact metadata appear in the NPD to support secure, trusted exchange across networks.</p>
 
-      <h3 id="req-7"><span class="req-number">7</span>Patient Access (IAL2)</h3>
+      <h3 id="req-7">2.7 Patient Access (IAL2)</h3>
       <p>Support patient access to claims and clinical data using CMS-approved IAL2 credentials.</p>
       <p>Payers <span class="kw must">MUST</span> accept IAL2 identity verification for patient queries without requiring portal login, consistent with the Interoperability Framework.</p>
       <p>A CMS-aligned network may accept the IAL2 token and validate it on behalf of the payer.</p>
 
-      <h3 id="req-8"><span class="req-number">8</span>Auditability</h3>
+      <h3 id="req-8">2.8 Auditability</h3>
       <p>Provide data holder–level, network-level audit logs for payer access.</p>
       <p>Payers <span class="kw must">MUST</span> log data requests and responses (who, when, purpose of use) and provide these network-level audit logs to networks for patient-facing transparency. Logs <span class="kw must">MUST</span> be retained for at least seven (7) years, or longer if required by applicable law (45 CFR 164.530(j)).</p>
       <p><em>This addresses network-level data holder–level logging only; payers' independent obligation to log workforce access within their own systems under 45 CFR 164.312(b) is not displaced.</em></p>
@@ -453,9 +474,9 @@
 
     <!-- Use Case 1 -->
     <section id="uc1">
-      <h2>Use Case 1: Payers Responding to Patient Access Queries (B2C)</h2>
+      <h2>3.0 Use Case - Patient Access (B2C)</h2>
 
-      <h3>Overview</h3>
+      <h3 id="uc1-overview">3.1 Overview</h3>
       <p>Under the CMS Health Tech Ecosystem Interoperability Framework, Payers are required to honor patient-authorized data requests from third-party Patient Apps — without requiring patients to log into a payer portal. Each request arrives via a CMS-aligned Network that has already validated the requesting app's standing, attestations, and IAL2 chain of trust.</p>
       <p><strong>Standards basis:</strong></p>
       <ul>
@@ -466,7 +487,7 @@
       </ul>
       <p>There are two authorization paths Payers will see, depending on how the CMS-aligned Network and the Payer's authorization server handle consent. Both are fully compliant; choice depends on the Payer's governance posture.</p>
 
-      <h3 id="uc1-path1">Path 1 (Ideal): Network-Aligned Client Credentials with IAL2</h3>
+      <h3 id="uc1-path1">3.2 Path 1 (Ideal): Network-Aligned Client Credentials with IAL2</h3>
       <p>The Patient App captures patient consent and verifies patient identity to IAL2 with an approved Credential Service Provider (CSP). The Network presents the Payer's <code>/token</code> endpoint with a <code>client_credentials</code> request whose signed <code>client_assertion</code> JWT carries the IAL2 <code>id_token</code> in a structured <code>cms_smart</code> extension. No redirect to the Payer's domain. No consent UI hosted by the Payer.</p>
 
       <h4>What arrives at the Payer's <code>/token</code> endpoint</h4>
@@ -486,7 +507,7 @@
         <li>Issue an access token scoped to the requested SMART v2 scopes</li>
       </ol>
 
-      <h3 id="uc1-path2">Path 2 (Alternate): Partner-Hosted Consent with Attestation</h3>
+      <h3 id="uc1-path2">3.3 Path 2 (Alternate): Partner-Hosted Consent with Attestation</h3>
       <p>Same <code>client_credentials</code> shape as Path 1, with one addition: the Payer hosts a consent policy at a stable, publicly available URL. The Patient App renders the policy to the patient in-app and captures acceptance before any request is made to the Payer. The Network includes a <code>consent_attestation</code> in the inbound JWT.</p>
 
       <h4>What the Payer publishes</h4>
@@ -505,7 +526,7 @@
         A third fallback using the <code>authorization_code</code> grant is available for organizations not yet ready for either path above. Contact your CMS-aligned Network for details.
       </div>
 
-      <h3 id="uc1-token">Token Request Structure</h3>
+      <h3 id="uc1-token">3.4 Token Request Structure</h3>
       <pre>POST /token
 Content-Type: application/x-www-form-urlencoded
 
@@ -542,12 +563,12 @@ grant_type=client_credentials
   }
 }</code></pre>
 
-      <h3 id="uc1-response">What Payers Must Return</h3>
+      <h3 id="uc1-response">3.5 What Payers Must Return</h3>
       <p>In response to patient-authorized queries, Payers <span class="kw must">MUST</span> return claims, coverage, and clinical data scoped to the requesting patient. At minimum: USCDI FHIR R4 resources covering the dataset relevant to the Payer's role — <code>Patient</code>, <code>Coverage</code>, <code>ExplanationOfBenefit</code>, <code>Condition</code>, <code>Observation</code>, <code>MedicationRequest</code>, etc.</p>
       <p>All data that is online and available to patients <span class="kw must">MUST</span> be provided, whether the patient is a current member or not.</p>
       <p>SMART v2 scope enforcement: Issue tokens limited to the scopes the app requested and enforce scope-level access on every FHIR call.</p>
 
-      <h3 id="uc1-tech">Technical Requirements</h3>
+      <h3 id="uc1-tech">3.6 Technical Requirements</h3>
       <table>
         <thead>
           <tr><th>Capability</th><th>Requirement</th><th>Path</th></tr>
@@ -563,7 +584,7 @@ grant_type=client_credentials
         </tbody>
       </table>
 
-      <h3>Registration</h3>
+      <h3 id="uc1-registration">3.7 Registration</h3>
       <p><strong>Current state (manual):</strong> Provide a publicly-resolvable JWK Set URL, <code>/token</code> endpoint, FHIR base URL, and (if on Path 2) hosted consent policy URL to the CMS-aligned Network. The Network registers the Payer and surfaces it to participating Patient Apps.</p>
       <p><strong>Future state:</strong> Auto-registration aligned with UDAP / dynamic registration patterns is forthcoming. Build against the manual flow now.</p>
     </section>
@@ -572,17 +593,13 @@ grant_type=client_credentials
 
     <!-- Use Case 2 -->
     <section id="uc2">
-      <h2>Use Case 2: Payers Initiating Queries Upon Receipt of a Claim (B2B)</h2>
+      <h2>4.0 Use Case - Claim-Triggered Query (B2B)</h2>
 
-      <h3>Overview</h3>
+      <h3 id="uc2-overview">4.1 Overview</h3>
       <p>When a claim is received, a Payer may query the submitting provider's systems for supporting clinical data. This enables utilization management, claims adjudication, and quality program needs without manual chart pull requests. The scope is limited to clinical data relevant to claims submitted in the prior 60 days.</p>
       <p><strong>GA Requirement:</strong> Payers can query providers for clinical data supporting claims submitted in the prior 60 days. Responses should include structured data or PDFs.</p>
-      <div class="callout info">
-        <span class="label">Optional — GA Milestone</span>
-        OPTIONAL for the July 4, 2026 GA milestone.
-      </div>
 
-      <h3>Workflow</h3>
+      <h3 id="uc2-workflow">4.2 Workflow</h3>
       <ol class="workflow-steps">
         <li><strong>Claim received</strong> — Payer receives a claim from a provider via standard claims channel.</li>
         <li><strong>Query initiation</strong> — Within 60 days of claim receipt, the Payer initiates a targeted clinical data query to the submitting provider's FHIR endpoint.</li>
@@ -590,25 +607,25 @@ grant_type=client_credentials
         <li><strong>Payer ingestion</strong> — Payer ingests the returned data for claim adjudication, utilization management, or quality purposes.</li>
       </ol>
 
-      <h3>Scope and Parameters</h3>
+      <h3 id="uc2-scope">4.3 Scope and Parameters</h3>
       <table>
         <thead><tr><th>Parameter</th><th>Value</th></tr></thead>
         <tbody>
           <tr><td>Time window</td><td>Query must be issued within 60 days of claim receipt</td></tr>
           <tr><td>Query scope</td><td>Targeted to the specific claim encounter — not bulk population queries</td></tr>
-          <tr><td>Purpose of Use</td><td>HIPAA Treatment, Payment, or Healthcare Operations (TPO) as appropriate</td></tr>
+          <tr><td>Purpose of Use</td><td><code>CLMATTCH</code> (Claim Attachment) — <a href="https://terminology.hl7.org/en/ValueSet-v3-PurposeOfUse.html">HL7 v3 Purpose of Use code set</a></td></tr>
           <tr><td>Data format</td><td>Structured FHIR R4 resources preferred; PDF attachments accepted</td></tr>
         </tbody>
       </table>
 
-      <h3>Known Issues</h3>
+      <h3 id="uc2-issues">4.4 Known Issues</h3>
       <ul>
         <li>Some providers do not sign clinical notes, so data will not be released via API call. A mechanism for providers to indicate "pending/partial response" is under discussion in the workgroup.</li>
         <li>The 60-day window is recognized as tight. The workgroup may revisit this constraint in future releases.</li>
         <li>Providers who are ready to respond to payer queries are being identified in the Provider Workgroup — coordinate with your CMS-aligned Network to identify testing partners.</li>
       </ul>
 
-      <h3>Standards</h3>
+      <h3 id="uc2-standards">4.5 Standards</h3>
       <ul>
         <li><a href="https://hl7.org/fhir/us/davinci-cdex/">Da Vinci CDex (Clinical Data Exchange) IG</a> — for structured attachment and documentation request workflows</li>
         <li><a href="https://build.fhir.org/ig/HL7/smart-app-launch/backend-services.html">SMART Backend Services</a> — for system-to-system authorization</li>
@@ -620,23 +637,23 @@ grant_type=client_credentials
 
     <!-- Use Case 3 -->
     <section id="uc3">
-      <h2>Use Case 3: Payers Initiating Queries for Quality Measure Reporting (B2B)</h2>
+      <h2>5.0 Use Case - Quality Measure Reporting (B2B)</h2>
 
-      <h3>Overview</h3>
+      <h3 id="uc3-overview">5.1 Overview</h3>
       <p>Payers, including CMS, and other value-based care organizations may query for measure-specific clinical data from providers under the healthcare quality improvement (<code>HQUALIMP</code>) purpose of use. Queries support quality measurement, care gap identification, quality reporting, and value-based care programs.</p>
       <div class="callout warn">
         <span class="label">Status: Evaluate Feasibility</span>
         Content hold pending community spec finalization. This use case documents the current working model developed by the Payer/Provider Small Group and is intended to guide early adopters and testing partners.
       </div>
 
-      <h3>Workgroup Agreements</h3>
+      <h3 id="uc3-agreements">5.2 Workgroup Agreements</h3>
       <ul>
         <li>The minimum FHIR resources for a quality measure are defined by the measure authority (NCQA or CMS). US Quality Core is the long-term target but not viable today.</li>
         <li>The DEQM Data Exchange MeasureReport wrapper is <span class="kw optional">OPTIONAL</span> when a provider sends data to a payer. The clinical payload is what matters.</li>
         <li>A Payer will not run live queries on a Provider's system for quality purposes — the Provider packages and delivers the data.</li>
       </ul>
 
-      <h3 id="uc3-workflow">End-to-End Workflow</h3>
+      <h3 id="uc3-workflow">5.3 End-to-End Workflow</h3>
       <p>The workflow involves four participants: Measure Authority, Payer, Provider, and Measure Calculation Engine.</p>
       <table>
         <thead><tr><th style="width:50px;">Step</th><th style="width:140px;">Actor</th><th>Action</th></tr></thead>
@@ -653,14 +670,14 @@ grant_type=client_credentials
         </tbody>
       </table>
 
-      <h3>Measure Selection</h3>
+      <h3 id="uc3-measures">5.4 Measure Selection</h3>
       <p>Each Payer/Provider pair selects at minimum one (1) measure for testing. Any eCQM or HEDIS measure is eligible.</p>
       <ul>
         <li><strong>eCQMs:</strong> <a href="https://ecqi.healthit.gov/ep-ec/ecqms">eCQI Resource Center</a> <em>(available via open source)</em></li>
         <li><strong>HEDIS measures:</strong> <a href="https://www.ncqa.org/hedis/">NCQA</a> <em>(requires licensure — confirm access arrangements before testing begins)</em></li>
       </ul>
 
-      <h3>FHIR Terminology Mapping</h3>
+      <h3 id="uc3-fhir">5.5 FHIR Terminology Mapping</h3>
       <table>
         <thead><tr><th>Concept</th><th>FHIR Representation</th></tr></thead>
         <tbody>
@@ -674,7 +691,7 @@ grant_type=client_credentials
         </tbody>
       </table>
 
-      <h3 id="uc3-gaps">Known Gaps</h3>
+      <h3 id="uc3-gaps">5.6 Known Gaps</h3>
 
       <h4>eCQM gap (USCDI v3 + 10 additional elements)</h4>
       <p>USCDI v3 alone does not carry enough for most eCQMs. Ten additional data elements are needed: Follow-Up Plan, Discharge Summary Sent, Assessment Tool Score, Section GG Functional Status, PHQ-9, Blood Culture Collected, Medication Reconciliation List, Medication Administration, Specialist Report Received, Device Days. <code>MedicationStatement</code> and <code>DeviceUseStatement</code> are not profiled in US Core. <code>Specimen</code> and <code>MedicationDispense</code> exist only in STU6+.</p>
@@ -688,7 +705,7 @@ grant_type=client_credentials
       <h4>Provenance</h4>
       <p>HEDIS metatag (<code>meta.tag.hedisDataSource</code>) is being retired. Use standard FHIR <code>Provenance</code> until the workgroup converges on a replacement. NCQA data quality validation (to replace PSV) is targeted for 2027.</p>
 
-      <h3>Open Issues</h3>
+      <h3 id="uc3-issues">5.7 Open Issues</h3>
       <ul>
         <li><strong>Push vs. pull is not resolved.</strong> Infrastructure to date is query/pull. HEDIS push has been proposed but not agreed.</li>
         <li><strong>CQL Engine certification:</strong> DQIC is vetting engines for consistency. Confirm whether the selected Measure Authority requires a certified engine before production deployment.</li>
@@ -696,7 +713,7 @@ grant_type=client_credentials
         <li>Submit written comments to ONC on USCDI+Quality v1 covering the +10 eCQM gap and HEDIS-specific requirements.</li>
       </ul>
 
-      <h3>Use Case 3 References</h3>
+      <h3 id="uc3-refs">5.8 References</h3>
       <ul>
         <li><a href="https://hl7.org/fhir/us/davinci-atr/">HL7 Da Vinci ATR v2.1.0</a></li>
         <li><a href="https://hl7.org/fhir/us/davinci-deqm/">HL7 Da Vinci DEQM v5.0.0</a></li>
@@ -710,13 +727,13 @@ grant_type=client_credentials
 
     <!-- Use Case 4 -->
     <section id="uc4">
-      <h2>Use Case 4: Payers Responding to Queries from Providers and Other Payers (B2B)</h2>
+      <h2>6.0 Use Case - Other Approved Payer and Provider Queries (B2B)</h2>
 
-      <h3>Overview</h3>
+      <h3 id="uc4-overview">6.1 Overview</h3>
       <p>In addition to patient-initiated queries, Payers must respond to queries from Providers in their network and, where appropriate, from other Payers. These are system-to-system (B2B) exchanges operating under HIPAA TPO purposes of use and applicable network agreements.</p>
       <p><strong>GA Requirement:</strong> Respond to patient, provider, and payer queries for claims and benefit information via a CMS-aligned Network.</p>
 
-      <h3 id="uc4-provider">Provider Queries to Payers</h3>
+      <h3 id="uc4-provider">6.2 Provider Queries to Payers</h3>
       <p>Providers may query Payers for claims and clinical data about shared patients to support care coordination, utilization management, and treatment. Payers <span class="kw must">MUST</span>:</p>
       <ul>
         <li>Return claims data for providers in their network through CMS-Aligned Networks without requiring portal accounts.</li>
@@ -726,15 +743,46 @@ grant_type=client_credentials
       </ul>
       <p><strong>Purpose of Use:</strong> HIPAA Treatment (<code>TREAT</code>) or Healthcare Operations (<code>HOPERAT</code>), as applicable.</p>
 
-      <h3 id="uc4-p2p">Payer-to-Payer Queries</h3>
+      <h3 id="uc4-p2p">6.3 Payer-to-Payer Queries</h3>
       <p>When a patient changes health plans, the new Payer may query the prior Payer for claims history and clinical data to support care continuity.</p>
       <ul>
         <li><strong>Patient consent:</strong> Member consent and selection of prior plan is required, typically captured at enrollment.</li>
         <li><strong>Data scope:</strong> Claims history, coverage information, and clinical data per PDex IG scope.</li>
         <li><strong>Network routing:</strong> Payer must be registered in the NPD and reachable via a CMS-aligned Network.</li>
+        <li><strong>Purpose of Use:</strong> <code>HPAYMT</code> (Healthcare Payment) or <code>HOPERAT</code> (Healthcare Operations) — <a href="https://terminology.hl7.org/en/ValueSet-v3-PurposeOfUse.html">HL7 v3 Purpose of Use code set</a></li>
       </ul>
 
-      <h3>Minimum NPD Directory Fields</h3>
+      <h3 id="uc4-tech">6.4 Technical Requirements</h3>
+      <table>
+        <thead><tr><th>Requirement</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>CMS-Aligned Network participation</td><td>Payer must be connected to at least one CMS-aligned Network capable of routing B2B queries</td></tr>
+          <tr><td>NPD registration</td><td>Endpoint and identity metadata published and kept current in the NPD</td></tr>
+          <tr><td>FHIR R4 APIs</td><td>FHIR R4 endpoints for claims, coverage, and clinical data</td></tr>
+          <tr><td>SMART Backend Services</td><td>System-to-system OAuth 2.0 for B2B authorization</td></tr>
+          <tr><td>Patient matching</td><td>Apply CMS-approved patient matching spec to incoming queries</td></tr>
+          <tr><td>Scope enforcement</td><td>Enforce purpose-of-use and data scope per query context</td></tr>
+          <tr><td>Audit logging</td><td>Log all inbound queries and responses per the Auditability GA requirement</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="uc4-payvider">6.5 Payvider Considerations</h3>
+      <p>Payviders with full authority to adjudicate claims and act as a Payer are subject to all Payer requirements. Each Payer is responsible for informing their Payviders of NPD update obligations. The Payvider is the responsible party for maintaining their own NPD entries.</p>
+
+      <h3 id="uc4-secondary">6.6 Secondary Use Restrictions</h3>
+      <p>The following uses of data queried through CMS-aligned Networks are <strong>not permitted</strong>:</p>
+      <ul>
+        <li>Pricing or contract negotiation</li>
+        <li>Denying coverage to members in future enrollment periods</li>
+      </ul>
+      <p>The workgroup is developing a formal list of permitted and non-permitted secondary uses. These restrictions should be reflected in network participation agreements.</p>
+    </section>
+
+    <hr>
+
+    <!-- NPD Requirements -->
+    <section id="npd">
+      <h2>7.0 National Provider Directory (NPD) Requirements</h2>
       <table>
         <thead><tr><th>Field</th><th>Notes</th></tr></thead>
         <tbody>
@@ -750,38 +798,13 @@ grant_type=client_credentials
       </table>
       <p>Minimum data for member matching/routing: Member ID + Full Name + DOB enables routing to the correct entity.</p>
       <p><strong>Standards basis:</strong> <a href="https://hl7.org/fhir/us/davinci-pdex/">HL7 Da Vinci PDex IG v2.x</a>. PDex v2.2 introduces NDJSON response format — confirm version support with your network partner.</p>
-
-      <h3>Technical Requirements</h3>
-      <table>
-        <thead><tr><th>Requirement</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr><td>CMS-Aligned Network participation</td><td>Payer must be connected to at least one CMS-aligned Network capable of routing B2B queries</td></tr>
-          <tr><td>NPD registration</td><td>Endpoint and identity metadata published and kept current in the NPD</td></tr>
-          <tr><td>FHIR R4 APIs</td><td>FHIR R4 endpoints for claims, coverage, and clinical data</td></tr>
-          <tr><td>SMART Backend Services</td><td>System-to-system OAuth 2.0 for B2B authorization</td></tr>
-          <tr><td>Patient matching</td><td>Apply CMS-approved patient matching spec to incoming queries</td></tr>
-          <tr><td>Scope enforcement</td><td>Enforce purpose-of-use and data scope per query context</td></tr>
-          <tr><td>Audit logging</td><td>Log all inbound queries and responses per the Auditability GA requirement</td></tr>
-        </tbody>
-      </table>
-
-      <h3>Payvider Considerations</h3>
-      <p>Payviders with full authority to adjudicate claims and act as a Payer are subject to all Payer requirements. Each Payer is responsible for informing their Payviders of NPD update obligations. The Payvider is the responsible party for maintaining their own NPD entries.</p>
-
-      <h3>Secondary Use Restrictions</h3>
-      <p>The following uses of data queried through CMS-aligned Networks are <strong>not permitted</strong>:</p>
-      <ul>
-        <li>Pricing or contract negotiation</li>
-        <li>Denying coverage to members in future enrollment periods</li>
-      </ul>
-      <p>The workgroup is developing a formal list of permitted and non-permitted secondary uses. These restrictions should be reflected in network participation agreements.</p>
     </section>
 
     <hr>
 
     <!-- Appendix -->
     <section id="references">
-      <h2>Appendix: Key References</h2>
+      <h2>8.0 Appendix: Key References</h2>
       <table>
         <thead><tr><th>Resource</th><th>URL</th></tr></thead>
         <tbody>
