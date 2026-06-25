@@ -99,7 +99,7 @@ This addresses network-level data holder–level logging only; payers' independe
 
 ---
 
-## 3.0 Use Case 1: Payers Responding to Patient Access Queries (B2C)
+## 3.0 Use Case - Patient Access (B2C)
 
 ### 3.1 Overview
 
